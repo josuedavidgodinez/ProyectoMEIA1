@@ -111,7 +111,7 @@ public class principal extends javax.swing.JFrame {
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_IniciarActionPerformed
-    private usuario verificarlogin(String usuario,String pass){
+   /* private usuario verificarlogin(String usuario,String pass){
      File archivo;
      usuario retorno=new usuario();
        
@@ -146,7 +146,7 @@ public class principal extends javax.swing.JFrame {
 
         } catch (IOException e) {
         };
-    }
+    }*/
     public boolean descifrar01(String numero){
  boolean retorno=false;
         if(numero=="0"){
