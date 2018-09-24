@@ -26,7 +26,15 @@ import org.apache.commons.io.FileUtils;
  * @author godin
  */
 public class Vistaadmin extends javax.swing.JFrame {
+private usuario usuariologeado;
 
+    public usuario getUsuariologeado() {
+        return usuariologeado;
+    }
+
+    public void setUsuariologeado(usuario usuariologeado) {
+        this.usuariologeado = usuariologeado;
+    }
     /**
      * Creates new form Vistaadmin
      */
@@ -57,6 +65,12 @@ public class Vistaadmin extends javax.swing.JFrame {
             }
         });
 
+        path.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pathActionPerformed(evt);
+            }
+        });
+
         GenerarBackup.setText("Generar Backup");
         GenerarBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +83,7 @@ public class Vistaadmin extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(99, Short.MAX_VALUE)
+                .addContainerGap(481, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(seleccionarruta)
@@ -80,14 +94,14 @@ public class Vistaadmin extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(341, Short.MAX_VALUE)
                 .addComponent(path, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seleccionarruta)
                     .addComponent(GenerarBackup))
-                .addGap(128, 128, 128))
+                .addGap(39, 39, 39))
         );
 
         pack();
@@ -133,6 +147,10 @@ public class Vistaadmin extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_GenerarBackupActionPerformed
+
+    private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pathActionPerformed
   public void generarbitacora(String Usuario,String ruta,Date fecha){
       
        File f;
