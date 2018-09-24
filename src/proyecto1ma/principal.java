@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,19 +43,26 @@ public class principal extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Iniciar = new javax.swing.JButton();
         Registrarse = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        user.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userActionPerformed(evt);
             }
         });
 
+        password.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
         jLabel1.setText("Usuario");
 
+        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
         jLabel2.setText("Contraseña ");
 
+        Iniciar.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
         Iniciar.setText("Iniciar Sesion");
         Iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,31 +70,46 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
+        Registrarse.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 13)); // NOI18N
         Registrarse.setText("Registrarse");
+        Registrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegistrarseActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\godin\\Downloads\\Tailor Brands - Instant Logo Maker & Online Logo Design - Mozilla Firefox(1).png")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addGap(42, 42, 42)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Registrarse))
-                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(119, Short.MAX_VALUE))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(Iniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Registrarse))
+                            .addComponent(user)
+                            .addComponent(password)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(68, 68, 68)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(83, 83, 83)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -98,7 +121,7 @@ public class principal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Iniciar)
                     .addComponent(Registrarse))
-                .addContainerGap(208, Short.MAX_VALUE))
+                .addGap(139, 139, 139))
         );
 
         pack();
@@ -109,16 +132,46 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_userActionPerformed
 
     private void IniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IniciarActionPerformed
-        // TODO add your handling code here:
+          usuario usuariologeado;
+        usuariologeado =verificarlogin(user.getText(),password.getText());
+        
+        if(usuariologeado!=null){
+        JOptionPane.showMessageDialog(null, "Se logeo correctamente");
+        
+        if(usuariologeado.isRol()){
+        
+            Vistaadmin vista=new Vistaadmin(usuariologeado);
+          
+            vista.setVisible(true);
+            this.setVisible(false);
+        }else{
+             Vistausuario vista=new Vistausuario(usuariologeado);
+           
+            vista.setVisible(true);
+            this.setVisible(false);
+            
+        }
+       
+       
+       }else{
+          JOptionPane.showMessageDialog(null, "datos incorrectos");
+        }
     }//GEN-LAST:event_IniciarActionPerformed
-   /* private usuario verificarlogin(String usuario,String pass){
+
+    private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
+       Registro registro=new Registro();
+       registro.setVisible(true);
+       this.setVisible(false);
+    }//GEN-LAST:event_RegistrarseActionPerformed
+    private usuario verificarlogin(String usuario,String pass){
      File archivo;
      usuario retorno=new usuario();
        
         archivo = new File("C:\\MEIA\\usuarios.txt");
           try {
  if(!archivo.exists()){
-       JOptionPane.showMessageDialog(null, "Usuario Incorrecto");
+       
+       return null;
         }else{
      String cadena;
       FileReader f = new FileReader(archivo);
@@ -126,32 +179,44 @@ public class principal extends javax.swing.JFrame {
         String[] datos;
       while ((cadena = b.readLine()) != null) {
            
-            datos = cadena.split("/|");
+            datos = cadena.split("\\|");
 
-            if(usuario==datos[0]&&pass==datos[3]){
+            if(usuario.equals(datos[0])&&pass.equals(datos[3])){
                 
                 retorno.setUsuario(datos[0]);
                 retorno.setNombre(datos[1]);
                 retorno.setApellido(datos[2]);
                 retorno.setPassword(datos[3]);
                 retorno.setRol(descifrar01(datos[4]));
+                retorno.setFecha_nacimiento(Date.valueOf(datos[5]));
+                retorno.setCorreo_alternativo(datos[6]);
+                retorno.setTelefono(Integer.valueOf(datos[7]));
+                retorno.setPath_fotografia(datos[8]);
+                retorno.setStatus(descifrar01(datos[9]));
+                 
+                break;
             }
 
           
         }
+      
+      if(retorno.getUsuario()==null){
+      retorno=null;
  }
+ }
+      return retorno;
       
 
           
-
         } catch (IOException e) {
-        };
-    }*/
+            return null;
+    }
+    }
     public boolean descifrar01(String numero){
  boolean retorno=false;
-        if(numero=="0"){
+        if(numero.equals("0")){
         retorno= false;
-        }else if(numero=="1"){
+        }else if(numero.equals("1")){
         retorno= true;
         }
         return retorno;
@@ -196,6 +261,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton Registrarse;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField password;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
