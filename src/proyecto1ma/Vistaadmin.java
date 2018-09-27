@@ -5,6 +5,7 @@
  */
 package proyecto1ma;
 
+import java.awt.Image;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -17,30 +18,35 @@ import java.nio.file.StandardCopyOption;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.apache.commons.io.FileUtils;
+import static proyecto1ma.Vistausuario.usuariologeado;
 
 /**
  *
  * @author godin
  */
 public class Vistaadmin extends javax.swing.JFrame {
-private usuario usuariologeado;
 
-    public usuario getUsuariologeado() {
-        return usuariologeado;
-    }
+    static usuario usuariologeado;
 
-    public void setUsuariologeado(usuario usuariologeado) {
-        this.usuariologeado = usuariologeado;
-    }
     /**
      * Creates new form Vistaadmin
      */
-    public Vistaadmin() {
+    public Vistaadmin(usuario user) {
+
         initComponents();
-        
+        usuariologeado = user;
+        Rol.setText("Administrador");
+        usuario.setText(usuariologeado.getUsuario());
+
+        ImageIcon icon = new ImageIcon(usuariologeado.getPath_fotografia());
+
+        Icon icono = new ImageIcon(icon.getImage().getScaledInstance(foto.getWidth(), foto.getHeight(), Image.SCALE_DEFAULT));
+        foto.setIcon(icono);
     }
 
     /**
@@ -55,9 +61,13 @@ private usuario usuariologeado;
         seleccionarruta = new javax.swing.JButton();
         path = new javax.swing.JTextField();
         GenerarBackup = new javax.swing.JButton();
+        foto = new javax.swing.JLabel();
+        usuario = new javax.swing.JLabel();
+        Rol = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        seleccionarruta.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
         seleccionarruta.setText("seleccionar ruta");
         seleccionarruta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,12 +75,14 @@ private usuario usuariologeado;
             }
         });
 
+        path.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
         path.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pathActionPerformed(evt);
             }
         });
 
+        GenerarBackup.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 14)); // NOI18N
         GenerarBackup.setText("Generar Backup");
         GenerarBackup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,97 +90,120 @@ private usuario usuariologeado;
             }
         });
 
+        foto.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 10)); // NOI18N
+        foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        foto.setMaximumSize(new java.awt.Dimension(225, 225));
+        foto.setMinimumSize(new java.awt.Dimension(225, 225));
+        foto.setName(""); // NOI18N
+
+        usuario.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 48)); // NOI18N
+        usuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        Rol.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 48)); // NOI18N
+        Rol.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(481, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(seleccionarruta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(GenerarBackup))
-                    .addComponent(path, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Rol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(path)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(seleccionarruta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(GenerarBackup)))))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(341, Short.MAX_VALUE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(Rol, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(usuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(foto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
                 .addComponent(path, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seleccionarruta)
                     .addComponent(GenerarBackup))
-                .addGap(39, 39, 39))
+                .addContainerGap(115, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void seleccionarrutaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarrutaActionPerformed
-          
-          JFileChooser chooser=new JFileChooser();
-         chooser.setCurrentDirectory(new java.io.File("."));
-    chooser.setDialogTitle("Seleccionar una carpeta para hacer backup");
-    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-   
-    chooser.setAcceptAllFileFilterUsed(false);
- 
-  chooser.showOpenDialog(this);
-      path.setText(chooser.getSelectedFile().getAbsolutePath());
-      
-          
+
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Seleccionar una carpeta para hacer backup");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        chooser.setAcceptAllFileFilterUsed(false);
+
+        chooser.showOpenDialog(this);
+        path.setText(chooser.getSelectedFile().getAbsolutePath());
+
+
     }//GEN-LAST:event_seleccionarrutaActionPerformed
 
     private void GenerarBackupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarBackupActionPerformed
-        File target = new File(path.getText()+"\\MEIAbackup");
-        
-        
-       
-             
-                target.mkdir();
-                
-            try {
-                
-                 File sourceDirectory = new File("C:\\MEIA");
-     
-        
-        FileUtils.copyDirectory(sourceDirectory, target);
-                generarbitacora("Administrador", target.getAbsolutePath(), new Date());
-                JOptionPane.showMessageDialog(null, "Backup generado exitosamente");
-            
-            } catch (IOException ex) {
-                 JOptionPane.showMessageDialog(null, "Hubo un error al generar su Backup");
-                JOptionPane.showMessageDialog(null, ex);
-            }
-        
-        
-        
+        File target = new File(path.getText() + "\\MEIAbackup");
+
+        target.mkdir();
+
+        try {
+
+            File sourceDirectory = new File("C:\\MEIA");
+
+            FileUtils.copyDirectory(sourceDirectory, target);
+            generarbitacora("Administrador", target.getAbsolutePath(), new Date());
+            JOptionPane.showMessageDialog(null, "Backup generado exitosamente");
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Hubo un error al generar su Backup");
+            JOptionPane.showMessageDialog(null, ex);
+        }
+
+
     }//GEN-LAST:event_GenerarBackupActionPerformed
 
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pathActionPerformed
-  public void generarbitacora(String Usuario,String ruta,Date fecha){
-      
-       File f;
-       
-        f = new File("C:\\MEIA\\bitacora_backup.txt");
-          try {
- if(!f.exists()){
-        f.createNewFile();
-        }
-      
+    public void generarbitacora(String Usuario, String ruta, Date fecha) {
 
-            FileWriter w = new FileWriter(f.getAbsoluteFile(),true);
+        File f;
+
+        f = new File("C:\\MEIA\\bitacora_backup.txt");
+        try {
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+
+            FileWriter w = new FileWriter(f.getAbsoluteFile(), true);
 
             BufferedWriter bw = new BufferedWriter(w);
 
             PrintWriter wr = new PrintWriter(bw);
 
-            wr.println(Usuario+"|"+ruta+"|"+fecha.toString());
+            wr.println(Usuario + "|" + ruta + "|" + fecha.toString());
 
             wr.close();
 
@@ -177,7 +212,8 @@ private usuario usuariologeado;
         } catch (IOException e) {
         };
 
-}
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -208,14 +244,17 @@ private usuario usuariologeado;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Vistaadmin().setVisible(true);
+                new Vistaadmin(usuariologeado).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton GenerarBackup;
+    private javax.swing.JLabel Rol;
+    private javax.swing.JLabel foto;
     private javax.swing.JTextField path;
     private javax.swing.JButton seleccionarruta;
+    private javax.swing.JLabel usuario;
     // End of variables declaration//GEN-END:variables
 }
