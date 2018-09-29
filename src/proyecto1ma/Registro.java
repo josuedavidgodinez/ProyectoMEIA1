@@ -30,6 +30,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class Registro extends javax.swing.JFrame {
  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+ Manejadorarchivos manejo=new Manejadorarchivos();
     /**
      * Creates new form registrp
      */
@@ -306,52 +307,15 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_aniadirfotoActionPerformed
 
     private void RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarseActionPerformed
-        File f;
-        String isadmin = "0";
+       
         usuario usuarioacrear = new usuario();
-        ImageIcon icono = new ImageIcon(aniadirfoto.getText());
-
-        f = new File("C:\\MEIA\\usuarios.txt");
-        File carpetafotos = new File("C:\\MEIA\\fotografia");
+      
         try {
-            if (!f.exists()) {
-                f.createNewFile();
-                isadmin = "1";
-                usuarioacrear.setRol(true);
-            
-            }else{
-            usuarioacrear.setRol(false);
-            }
-            if (!carpetafotos.exists()) {
-                carpetafotos.mkdirs();
-            }
-            
-            if(!verificarsiexiste(user.getText())){
-                 File outputfile = new File("C:\\MEIA\\fotografia\\" + user.getText() + ".jpg");
-            File getfile = new File(aniadirfoto.getText());
-
-            FileWriter w = new FileWriter(f.getAbsoluteFile(), true);
-
-            BufferedWriter bw = new BufferedWriter(w);
-           
-            PrintWriter wr = new PrintWriter(bw);
-            FileUtils.copyFile(getfile, outputfile);
-            usuarioacrear.setUsuario(user.getText());
-            usuarioacrear.setNombre(name.getText());
-            usuarioacrear.setApellido(Lastname.getText());
-            usuarioacrear.setPassword(pass.getText());
-            usuarioacrear.setFecha_nacimiento((date.getDate()));
-            usuarioacrear.setCorreo_alternativo(mail.getText());
-            usuarioacrear.setPath_fotografia(outputfile.getAbsolutePath());
-            usuarioacrear.setTelefono(Integer.valueOf(tel.getText()));
-            usuarioacrear.setStatus(true);
+          
             
             
-            wr.println(user.getText() + "|" + name.getText() + "|" + Lastname.getText() + "|" + pass.getText() + "|" + isadmin + "|" + formatter.format(date.getDate())  + "|" + mail.getText() + "|" + tel.getText() + "|" + outputfile.getAbsolutePath() + "|1");
-
-            wr.close();
-
-            bw.close();
+           usuarioacrear= manejo.registrar(user.getText(), name.getText(), Lastname.getText(), pass.getText(), date.getDate(), mail.getText(), tel.getText(), aniadirfoto.getText(), usuarioacrear);
+            
             if(usuarioacrear.isRol()){
              Vistaadmin vista=new Vistaadmin(usuarioacrear);           
             vista.setVisible(true);
@@ -361,9 +325,7 @@ public class Registro extends javax.swing.JFrame {
             vista.setVisible(true);
             this.setVisible(false);}
            
-            }else{
-            JOptionPane.showMessageDialog(null, "El ususrio ingresado ya existe");
-            }
+           
            
             
 

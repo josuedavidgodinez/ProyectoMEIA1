@@ -64,6 +64,7 @@ public class Vistaadmin extends javax.swing.JFrame {
         foto = new javax.swing.JLabel();
         usuario = new javax.swing.JLabel();
         Rol = new javax.swing.JLabel();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -102,6 +103,13 @@ public class Vistaadmin extends javax.swing.JFrame {
         Rol.setFont(new java.awt.Font("Microsoft JhengHei UI Light", 0, 48)); // NOI18N
         Rol.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        logout.setText("logout");
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +130,9 @@ public class Vistaadmin extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(seleccionarruta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(GenerarBackup)))))
+                                .addComponent(GenerarBackup)))
+                        .addGap(56, 56, 56)
+                        .addComponent(logout)))
                 .addContainerGap(272, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,7 +151,8 @@ public class Vistaadmin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(seleccionarruta)
-                    .addComponent(GenerarBackup))
+                    .addComponent(GenerarBackup)
+                    .addComponent(logout))
                 .addContainerGap(115, Short.MAX_VALUE))
         );
 
@@ -187,6 +198,12 @@ public class Vistaadmin extends javax.swing.JFrame {
     private void pathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pathActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+      principal pr=new principal();
+      pr.setVisible(true);
+      this.setVisible(false);
+    }//GEN-LAST:event_logoutActionPerformed
     public void generarbitacora(String Usuario, String ruta, Date fecha) {
 
         File f;
@@ -253,6 +270,7 @@ public class Vistaadmin extends javax.swing.JFrame {
     private javax.swing.JButton GenerarBackup;
     private javax.swing.JLabel Rol;
     private javax.swing.JLabel foto;
+    private javax.swing.JButton logout;
     private javax.swing.JTextField path;
     private javax.swing.JButton seleccionarruta;
     private javax.swing.JLabel usuario;
